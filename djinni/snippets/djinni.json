@@ -1,0 +1,38 @@
+{
+    "enum": {
+        "prefix": "enum",
+        "description": "Enum definition",
+        "body": [
+            "${1:enumname} = enum {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "flags": {
+        "prefix": "flags",
+        "description": "Flags definition",
+        "body": [
+            "${1:flagsname} = flags {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "interface": {
+        "prefix": "interface",
+        "description": "Interface definition",
+        "body": [
+            "${1:interfacename} = interface ${2:+c} {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "record": {
+        "prefix": "record",
+        "description": "Record definition",
+        "body": [
+            "${1:recordname} = record {",
+            "\t$0",
+            "}"
+        ]
+    }
+}

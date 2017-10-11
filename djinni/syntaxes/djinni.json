@@ -1,0 +1,191 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Djinni",
+	"scopeName": "source.djinni",
+	"patterns": [
+		{"include": "#interface"},
+		{"include": "#record"},
+		{"include": "#generic-two-type"},
+		{"include": "#generic-one-type"},
+		{"include": "#static-function"},
+		{"include": "#post-type"},
+		{"include": "#keywords"},
+		{"include": "#boolean"},
+		{"include": "#numbers"},		
+		{"include": "#strings"},
+		{"include": "#func-return-type-with-generic-two-type"},
+		{"include": "#func-return-type-with-generic-one-type"},
+		{"include": "#func-return-type"}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.djinni",
+					"match": "\\b(enum|flags|string|bool|i8|i16|i32|i64|f32|f64|binary|set|map|list|const|deriving|static|optional)\\b"
+				},
+				{
+					"name": "keyword.control.djinni",
+					"match": "(:|\\+c|\\+j|\\+o|@import|@extern)"
+				},
+				{
+					"name": "markup.bold.djinni",
+					"match": "\\b(record|interface)\\b"
+				},
+				{
+					"name": "comment.line.djinni",
+					"match": "#.*$\n?"
+				}
+			]
+		},
+		"booleans": {
+			"patterns": [
+				{
+					"name": "constant.language.djinni",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric",
+					"match": "\\d+(\\.\\d*)?|\\.\\d+"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.djinni",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.djinni",
+					"match": "\\\\."
+				}
+			]
+		},
+		"record": {
+			"begin": "([A-Za-z_][A-Za-z0-9_.]*)(\\s*)=(\\s*)(record|enum|flags)(\\s*)(\\{)?",
+			"beginCaptures": {
+				"1": {"name": "entity.name.class.message.djinni"},
+				"4": {"name": "markup.bold.djinni"}
+			},
+			"end": "\\}",
+			"patterns": [
+				{"include": "$self"},
+				{"include": "#post-type"},
+				{"include": "#strings"},
+				{"include": "#keywords"}
+			]
+		},
+		"interface": {
+			"begin": "([A-Za-z_][A-Za-z0-9_.]*)(\\s*)=(\\s*)(interface)",
+			"beginCaptures": {
+				"1": {"name": "entity.name.class.djinni"},
+				"4": {"name": "markup.bold.djinni"}
+			},
+			"end": "\\}",
+			"patterns": [
+				{"include": "$self"},
+				{"include": "#function"},
+				{"include": "#post-type"},
+				{"include": "#static-function"},
+				{"include": "#strings"},
+				{"include": "#keywords"}
+			]
+		},
+		"function": {
+			"begin": "([A-Za-z_][A-Za-z0-9_.]*)(\\()",
+			"beginCaptures": {
+				"1": {"name": "entity.name.function.djinni"}
+			},
+			"end": ";",
+			"patterns": [
+				{"include": "$self"},
+				{"include": "#strings"},
+				{"include": "#keywords"},
+				{"include": "#post-type"},
+				{"include": "#func-return-type-with-generic-two-type"},
+				{"include": "#func-return-type-with-generic-one-type"},
+				{"include": "#func-return-type"}
+			]
+		},
+		"static-function": {
+			"begin": "(static)(\\s+)([A-Za-z_][A-Za-z0-9_.]*)(\\()",
+			"beginCaptures": {
+				"1": {"name": "keyword.djinni"},
+				"3": {"name": "entity.name.function.djinni"}
+			},
+			"end": ";",
+			"patterns": [
+				{"include": "$self"},
+				{"include": "#post-type"},
+				{"include": "#func-return-type"},
+				{"include": "#strings"},
+				{"include": "#keywords"}
+			]
+		},
+		"post-type": {
+			"begin": "([A-Za-z_][A-Za-z0-9_.]*)(\\s*):(\\s*)([A-Za-z_][A-Za-z0-9_.]*)",
+			"beginCaptures": {
+				"4": {"name": "keyword.djinni"}
+			},
+			"end": "\\b",
+			"patterns": [
+				{"include": "$self"},
+				{"include": "#strings"},
+				{"include": "#keywords"}
+			]
+		},
+		"generic-one-type": {
+			"begin": "<(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*)",
+			"beginCaptures": {
+				"2": {"name": "storage.type.djinni"}
+			},
+			"end": ">",
+			"patterns": [
+			]
+		},
+		"generic-two-type": {
+			"begin": "<(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*),(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*)",
+			"beginCaptures": {
+				"2": {"name": "storage.type.djinni"},
+				"5": {"name": "storage.type.djinni"}
+			},
+			"end": ">",
+			"patterns": [
+			]
+		},
+		"func-return-type": {
+			"begin": "(\\))(\\s*):(\\s*)([A-Za-z_][A-Za-z0-9_.]*)",
+			"beginCaptures": {
+				"4": {"name": "entity.name.type.djinni"}
+			},
+			"end": ";",
+			"patterns": [
+			]
+		},
+		"func-return-type-with-generic-one-type": {
+			"begin": "(\\))(\\s*):(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*)<(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*)",
+			"beginCaptures": {
+				"4": {"name": "entity.name.type.djinni"},
+				"7": {"name": "storage.type.djinni"}
+			},
+			"end": ">",
+			"patterns": [
+			]
+		},
+		"func-return-type-with-generic-two-type": {
+			"begin": "(\\))(\\s*):(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*)<(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*),(\\s*)([A-Za-z_][A-Za-z0-9_.]*)(\\s*)",
+			"beginCaptures": {
+				"4": {"name": "entity.name.type.djinni"},
+				"7": {"name": "storage.type.djinni"},
+				"10": {"name": "storage.type.djinni"}
+			},
+			"end": ">",
+			"patterns": [
+			]
+		}
+	}
+}

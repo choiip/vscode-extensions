@@ -1,0 +1,30 @@
+{
+    "name": "vscode-djinni",
+    "displayName": "Djinni",
+    "description": "Djinni syntax highlight for Visual Studio Code.",
+    "version": "0.1.0",
+    "publisher": "choiip",
+    "engines": {
+        "vscode": "^1.15.0"
+    },
+    "categories": [
+        "Languages", "Snippets"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "djinni",
+            "aliases": ["Djinni", "djinni"],
+            "extensions": [".djinni"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "djinni",
+            "scopeName": "source.djinni",
+            "path": "./syntaxes/djinni.json"
+        }],
+        "snippets": [{
+            "language": "djinni",
+            "path": "./snippets/djinni.json"
+        }]
+    }
+}
